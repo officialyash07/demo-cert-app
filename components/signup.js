@@ -1,11 +1,23 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Signup = () => {
     const { register, handleSubmit } = useForm();
 
-    const onSignup = () => {};
+    const onSignup = async (data) => {
+        try {
+            const response = await axios.post("/api/auth/signup", data);
+            console.log(response);
+            if (!response.data.error) {
+                alert("Signup successful. Please verify your email.");
+                window.location.href = "/auth?mode=confirmSignup";
+            }
+        } catch (error) {
+            alert(error.response.data.error);
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit(onSignup)}>

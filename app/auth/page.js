@@ -2,6 +2,7 @@
 
 import Signup from "@/components/signup";
 import Login from "@/components/login";
+import ConfirmSignup from "@/components/confirmSignup";
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -20,7 +21,9 @@ const AuthPage = () => {
     return (
         <main>
             <h1>Auth Page</h1>
-            {mode === "signup" ? <Signup /> : <Login />}
+            {mode === "signup" && <Signup />}
+            {mode === "login" && <Login />}
+            {mode === "confirmSignup" && <ConfirmSignup />}
         </main>
     );
 };
