@@ -6,10 +6,10 @@ export default function Home() {
         <div className={styles.page}>
             <h1>Home Page</h1>
             <p>
-                <Link href="/auth?mode=login">Login</Link>
+                <Link href="/login">Login</Link>
             </p>
             <p>
-                <Link href="/auth?mode=signup">Signup</Link>
+                <Link href="/signup">Signup</Link>
             </p>
         </div>
     );

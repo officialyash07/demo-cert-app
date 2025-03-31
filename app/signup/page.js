@@ -1,10 +1,16 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Signup = () => {
-    const { register, handleSubmit } = useForm();
+    const router = useRouter();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
     const onSignup = async (data) => {
         try {
@@ -12,10 +18,12 @@ const Signup = () => {
             console.log(response);
             if (!response.data.error) {
                 alert("Signup successful. Please verify your email.");
-                window.location.href = "/auth?mode=confirmSignup";
+                router.push(
+                    `/confirm-signup?email=${encodeURIComponent(data.email)}`
+                );
             }
         } catch (error) {
-            alert(error.response.data.error);
+            alert(error.response?.data?.message);
         }
     };
 
@@ -27,6 +35,7 @@ const Signup = () => {
                 })}
                 placeholder="Full Name"
             />
+            {errors.fullName && <p>{errors.fullName.message}</p>}
             <input
                 {...register("email", {
                     required: "Email is required",
@@ -34,6 +43,7 @@ const Signup = () => {
                 type="email"
                 placeholder="Email Address"
             />
+            {errors.email && <p>{errors.email.message}</p>}
             <input
                 {...register("password", {
                     required: "Password is required",
@@ -41,6 +51,7 @@ const Signup = () => {
                 type="password"
                 placeholder="********"
             />
+            {errors.password && <p>{errors.password.message}</p>}
             <button type="submit">Signup</button>
         </form>
     );
